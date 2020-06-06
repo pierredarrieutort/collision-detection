@@ -1,0 +1,28 @@
+body {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body * {
+    position: absolute;
+}
+
+#starship {
+    background: #333;
+    height: 70vmin;
+    width: 70vmin;
+}
+
+#poteau {
+    background: aquamarine;
+    height: 10vmin;
+    width: 10vmin;
+}
+
+#player {
+    background: orange;
+    height: 4vmin;
+    width: 4vmin;
+}
