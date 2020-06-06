@@ -28,7 +28,9 @@ window.addEventListener('resize', sizeInit)
 
 
 
-let coords
+let
+    coords,
+    speed = 50
 updateDisplayedCoords()
 
 
@@ -38,7 +40,7 @@ document.addEventListener('keydown', ({ key }) => {
         case 'ArrowLeft':
             checkIfCoordsAreAvaiable('ArrowLeft')
                 ? (
-                    player.style.left = `${parseFloat(player.style.left) - 1 * 10}px`,
+                    gsap.to(player,{left: parseFloat(player.style.left) - 1 * speed, rotate: 180, ease: 'power4.easeOut'}),
                     updateDisplayedCoords
                 )
                 : false
@@ -46,7 +48,7 @@ document.addEventListener('keydown', ({ key }) => {
         case 'ArrowRight':
             checkIfCoordsAreAvaiable('ArrowRight')
                 ? (
-                    player.style.left = `${parseFloat(player.style.left) + 1 * 10}px`,
+                    gsap.to(player, { left: parseFloat(player.style.left) + 1 * speed, rotate: 0, ease: 'power4.easeOut' }),
                     updateDisplayedCoords
                 )
                 : false
@@ -54,7 +56,7 @@ document.addEventListener('keydown', ({ key }) => {
         case 'ArrowUp':
             checkIfCoordsAreAvaiable('ArrowUp')
                 ? (
-                    player.style.top = `${parseFloat(player.style.top) - 1 * 10}px`,
+                    gsap.to(player, { top: parseFloat(player.style.top) - 1 * speed, rotate: -90, ease: 'power4.easeOut' }),
                     updateDisplayedCoords
                 )
                 : false
@@ -62,7 +64,7 @@ document.addEventListener('keydown', ({ key }) => {
         case 'ArrowDown':
             checkIfCoordsAreAvaiable('ArrowDown')
                 ? (
-                    player.style.top = `${parseFloat(player.style.top) + 1 * 10}px`,
+                    gsap.to(player, { top: parseFloat(player.style.top) + 1 * speed, rotate: 90, ease: 'power4.easeOut' }),
                     updateDisplayedCoords
                 )
                 : false
@@ -74,10 +76,10 @@ document.addEventListener('keydown', ({ key }) => {
 function updateDisplayedCoords() {
     coords = {
         starship: {
-            topLeft: starship.offsetLeft,
-            topRight: starship.offsetLeft + starship.offsetWidth,
-            bottomLeft: starship.offsetTop,
-            bottomRight: starship.offsetTop + starship.offsetHeight
+            topLeft: starship.offsetLeft + starship.clientLeft,
+            topRight: starship.offsetLeft + starship.clientWidth + starship.clientLeft,
+            bottomLeft: starship.offsetTop + starship.clientTop,
+            bottomRight: starship.offsetTop + starship.clientHeight + starship.clientLeft
         },
         poteau: {
             topLeft: poteau.offsetLeft,
@@ -103,16 +105,16 @@ function checkIfCoordsAreAvaiable(key) {
     switch (key) {
         case 'ArrowLeft':
             nextPlayerPosition = {
-                topLeft: player.offsetLeft - 10,
-                topRight: player.offsetLeft - 10 + player.offsetWidth,
+                topLeft: player.offsetLeft - speed,
+                topRight: player.offsetLeft - speed + player.offsetWidth,
                 bottomLeft: player.offsetTop,
                 bottomRight: player.offsetTop + player.offsetHeight
             }
             break;
         case 'ArrowRight':
             nextPlayerPosition = {
-                topLeft: player.offsetLeft + 10,
-                topRight: player.offsetLeft + 10 + player.offsetWidth,
+                topLeft: player.offsetLeft + speed,
+                topRight: player.offsetLeft + speed + player.offsetWidth,
                 bottomLeft: player.offsetTop,
                 bottomRight: player.offsetTop + player.offsetHeight
             }
@@ -121,16 +123,16 @@ function checkIfCoordsAreAvaiable(key) {
             nextPlayerPosition = {
                 topLeft: player.offsetLeft,
                 topRight: player.offsetLeft + player.offsetWidth,
-                bottomLeft: player.offsetTop - 10,
-                bottomRight: player.offsetTop - 10 + player.offsetHeight
+                bottomLeft: player.offsetTop - speed,
+                bottomRight: player.offsetTop - speed + player.offsetHeight
             }
             break;
         case 'ArrowDown':
             nextPlayerPosition = {
                 topLeft: player.offsetLeft,
                 topRight: player.offsetLeft + player.offsetWidth,
-                bottomLeft: player.offsetTop + 10,
-                bottomRight: player.offsetTop + 10 + player.offsetHeight
+                bottomLeft: player.offsetTop + speed,
+                bottomRight: player.offsetTop + speed + player.offsetHeight
             }
             break;
     }
