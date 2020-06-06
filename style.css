@@ -13,6 +13,7 @@ body * {
     background: #333;
     height: 70vmin;
     width: 70vmin;
+    border: solid 15px;
 }
 
 #poteau {
@@ -24,5 +25,16 @@ body * {
 #player {
     background: orange;
     height: 4vmin;
-    width: 4vmin;
+    width: 3vmin;
+}
+
+#player::after {
+    content: '';
+    display: block;
+    background: orangered;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    left: 75%;
+    border-radius: 0 100% 100% 0;
 }
